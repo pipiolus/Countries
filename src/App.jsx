@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Search from "./components/SearchBar";
+import CountrysList from "./components/CountryList";
+import CountryDetails from "./components/CountryDetails";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [search, setSearch] = useState("");
+  const [countries, setCountries] = useState([]);
+  const [countryDetails, setCountryDetails] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("https://studies.cs.helsinki.fi/restcountries/api/all")
+      .then((response) => response.data)
+      .then((allCountries) => setCountries(allCountries))
+      .catch((err) =>
+        alert(
+          `ERROR:${err}. It seems that a problem has ocurred. Try reloading the page`
+        )
+      );
+  }, []);
+
+  useEffect(() => {
+    setCountryDetails(null);
+  }, [search]);
+
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filterArr = (arr, str) => {
+    return arr.filter((obj) =>
+      obj.name.common.toLowerCase().match(str.toLowerCase())
+    );
+  };
+  const filteredCountries = filterArr(countries, search);
+
+  const showCountryDetails = (country) => {
+    axios
+      .get(
+        `https://studies.cs.helsinki.fi/restcountries/api/name/${country}`
+      )
+      .then((response) => setCountryDetails(response.data));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Data For Countries</h1>
+      <Search value={search} handleSearch={handleChange} />
+      {countryDetails !== null ? (
+        <CountryDetails country={countryDetails} />
+      ) : (
+        <CountrysList
+          countries={filteredCountries}
+          show={showCountryDetails}
+        />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
