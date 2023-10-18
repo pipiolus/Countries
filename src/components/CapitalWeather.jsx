@@ -6,7 +6,7 @@ const CapitalWeather = ({ country }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const api_key = import.meta.env.VITE_SOME_KEY;
+    const api_key = import.meta.env.VITE_API_KEY;
     if (weather === null) {
       setLoading(true);
       const cap = removeAccents(country.capital[0]);
