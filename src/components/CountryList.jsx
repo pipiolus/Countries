@@ -1,7 +1,23 @@
 import CountryDetails from "./CountryDetails";
 
 const CountrysList = ({ countries, show }) => {
-  if (countries.length === 0 || countries.length === 250) return null;
+  if (countries.length === 250) {
+    return (
+      <div>
+        {countries.map((country) => (
+          <div className="listed-country" key={country.fifa}>
+            <span>{country.flag}</span> <p>{country.name.common}</p>
+            <button
+              className="show-btn"
+              onClick={() => show(country.name.common)}
+            >
+              show
+            </button>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   if (countries.length === 1) {
     const country = countries[0];

@@ -22,7 +22,7 @@ const CapitalWeather = ({ country }) => {
         })
         .catch((err) => {
           alert(
-            `ERROR:${err}. It seems that a problem has ocurred getting the weather, try reloading the page`
+            `ERROR:${err}. It seems that a problem has ocurred getting the weather. Try again later`
           );
           setLoading(false);
         });
@@ -46,14 +46,16 @@ const CapitalWeather = ({ country }) => {
   }
   if (weather !== null) {
     return (
-      <div style={{ padding: "1em" }}>
-        <h2>Weather in {country.capital}</h2>
-        <p style={{ fontSize: "1.2rem" }}>
-          Temperature is {convertToCelsius(weather.main.temp)}°
-          Celsius
+      <div className="weather-container">
+        <h2 className="capital-name">Weather in {country.capital}</h2>
+        <p className="capital-info">
+          <b>
+            Temperature is {convertToCelsius(weather.main.temp)}°
+            Celsius
+          </b>
         </p>
         <div>
-          <p>
+          <p className="capital-info">
             <b>Sky conditions:</b> {weather.weather[0].description}
           </p>
           <img
@@ -62,7 +64,7 @@ const CapitalWeather = ({ country }) => {
             alt="weather-icon"
           />
         </div>
-        <p style={{ fontSize: "1.2rem" }}>
+        <p className="capital-info">
           Wind at {weather.wind.speed} m/s
         </p>
       </div>
