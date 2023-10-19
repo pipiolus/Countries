@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
 
 const CapitalWeather = ({ country }) => {
   const [weather, setWeather] = useState(null);
@@ -37,8 +38,9 @@ const CapitalWeather = ({ country }) => {
 
   if (loading) {
     return (
-      <div style={{ padding: "1em" }}>
-        <p>Loading...</p>
+      <div>
+        <LoadingSpinner />
+        <p>loading data...</p>
       </div>
     );
   }
@@ -55,9 +57,7 @@ const CapitalWeather = ({ country }) => {
             <b>Sky conditions:</b> {weather.weather[0].description}
           </p>
           <img
-            style={{
-              width: "10%",
-            }}
+            className="weather-icon"
             src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
             alt="weather-icon"
           />

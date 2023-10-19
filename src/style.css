@@ -1,17 +1,103 @@
 body {
-  text-align: center;
-  background: rgb(192, 200, 197);
-  background: radial-gradient(circle, rgba(192, 200, 197, 1) 17%, rgba(255, 255, 255, 1) 75%);
+  margin: 0;
 }
 
-div {
-  margin-top: 2vh;
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url(https://as2.ftcdn.net/v2/jpg/03/81/86/29/1000_F_381862991_e7LoEZAdjygCv90zQUXgrOjsWiUUrc4M.jpg);
 }
 
-p {
-  margin: 7px;
+.content {
+  background: rgb(166, 166, 166);
+  background: linear-gradient(353deg, rgba(166, 166, 166, 1) 14%, rgba(36, 136, 188, 1) 72%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid gray;
+  width: 50%;
+  height: 100%;
+}
+
+.title {
+  font-size: 4rem;
+  color: #f8fafc;
+}
+
+.country-name {
+  font-size: 3rem;
+}
+
+.info,
+.lang-info {
+  font-size: 1.3rem;
+}
+
+.info::before {
+  content: "►";
+  color: white;
+  padding-right: 0.3em;
+}
+
+.lang-info::before {
+  content: "•";
+  color: white;
+  padding-right: 0.3em;
 }
 
 .flag {
-  font-size: 8rem;
+  font-size: 5rem;
+}
+
+.listed-country {
+  display: flex;
+  align-items: center;
+}
+
+span {
+  padding-right: 0.2em;
+}
+
+.show-btn {
+  border: none;
+  margin-left: 0.3em;
+  color: #1e40af;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.show-btn:hover {
+  background-color: #1e40af;
+  color: white;
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+.weather-icon {
+  width: 40%;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #383636;
+  border-radius: 50%;
+  animation: spinner 0.5s linear infinite;
 }

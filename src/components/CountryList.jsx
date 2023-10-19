@@ -13,10 +13,13 @@ const CountrysList = ({ countries, show }) => {
   } else if (countries.length > 1 && countries.length < 10) {
     return (
       <div>
-        {countries.map((country, index) => (
-          <div key={index}>
-            <p>{country.name.common}</p>
-            <button onClick={() => show(country.name.common)}>
+        {countries.map((country) => (
+          <div className="listed-country" key={country.fifa}>
+            <span>{country.flag}</span> <p>{country.name.common}</p>
+            <button
+              className="show-btn"
+              onClick={() => show(country.name.common)}
+            >
               show
             </button>
           </div>
