@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Rubik+Iso&family=Tilt+Neon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
 
 body {
   margin: 0;
@@ -31,13 +32,28 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 
 .title {
   font-size: 5rem;
-  color: #f8fafc;
-  font-family: "Roboto Slab", sans-serif;
+  color: white;
+  font-family: "Abril Fatface", sans-serif;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  padding: 1em;
+  font-family: "Lora", sans-serif;
+}
+
+.search-bar>input {
+  width: 100%;
+  height: 2vh;
+  font-size: 1.1rem;
 }
 
 .country-name {
@@ -89,6 +105,8 @@ span {
   background-color: #1e40af;
   color: white;
   cursor: pointer;
+  border: 1px solid white;
+  border-radius: 2px;
 }
 
 h2 {
@@ -96,37 +114,42 @@ h2 {
   font-family: "Lora", sans-serif;
 }
 
-.weather-container {
-  padding: 1em;
-  margin: 1em;
-  display: flex;
-  width: 90%;
-  border-radius: 5px;
-  box-shadow: 0px 4px 5px 5px rgba(14, 20, 91, 0.75) inset;
-  -webkit-box-shadow: 0px 4px 5px 5px rgba(14, 20, 91, 0.75) inset;
-  -moz-box-shadow: 0px 4px 5px 5px rgba(0, 0, 0, 0.75) inset;
-}
-
-.open-weather {
+#open-weather {
   transition: all 2s;
   display: flex;
   justify-content: center;
   align-self: center;
   color: #1e3a8a;
-  width: 100%;
   font-size: 1.2em;
+  background: transparent;
   box-shadow: 2px 3px 3px 6px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 2px 3px 3px 6px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 3px 3px 6px rgba(0, 0, 0, 0.75);
 }
 
-.open-weather:hover {
+#open-weather:hover {
   cursor: pointer;
   background: rgb(2, 6, 23);
   background: linear-gradient(307deg, rgba(2, 6, 23, 1) 0%, rgba(14, 109, 233, 0.9711770450367647) 74%);
   color: white;
   font-weight: 900;
 }
+
+.weather-container {
+  padding: 1em;
+  margin: 1em;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  border-radius: 5px;
+  background: rgb(2, 6, 23);
+  background: linear-gradient(307deg, rgba(2, 6, 23, 1) 0%, rgba(14, 109, 233, 0.9711770450367647) 74%);
+  box-shadow: 0px 4px 5px 5px rgba(14, 20, 91, 0.75) inset;
+  -webkit-box-shadow: 0px 4px 5px 5px rgba(14, 20, 91, 0.75) inset;
+  -moz-box-shadow: 0px 4px 5px 5px rgba(0, 0, 0, 0.75) inset;
+  color: white;
+}
+
 
 .capital-name {
   font-size: 2.5rem;
@@ -147,6 +170,8 @@ h2 {
   font-family: "Roboto Slab", sans-serif;
   color: #1e40af;
   transition: all 0.2s;
+  border: 2px solid white;
+  font-weight: 900;
 }
 
 .hide-weather-btn:hover {
@@ -172,4 +197,16 @@ h2 {
   border-top: 5px solid #383636;
   border-radius: 50%;
   animation: spinner 0.5s linear infinite;
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-container>p {
+  font-size: 1.2em;
+  font-family: "Lora", sans-serif;
 }

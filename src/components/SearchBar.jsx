@@ -1,6 +1,6 @@
 const Search = ({ handleSearch }) => {
   return (
-    <div style={{ fontSize: "1.5rem", padding: "1em" }}>
+    <div className="search-bar">
       Find countries: <input onChange={handleSearch} />
     </div>
   );

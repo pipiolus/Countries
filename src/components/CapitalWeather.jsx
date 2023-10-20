@@ -9,7 +9,7 @@ const CapitalWeather = ({ country }) => {
 
   useEffect(() => {
     const api_key = import.meta.env.VITE_API_KEY;
-    if (weather === null && toggleWeather === false) {
+    if (weather === null && toggleWeather) {
       setLoading(true);
       const cap = removeAccents(country.capital[0]);
       const alt = removeDots(country.tld[0]);
@@ -50,48 +50,38 @@ const CapitalWeather = ({ country }) => {
   }
 
   if (loading) {
+    return <LoadingSpinner />;
+  }
+  if (weather !== null) {
     return (
-      <div>
-        <LoadingSpinner />
-        <p>loading data...</p>
+      <div className="weather-container">
+        <h2 className="capital-name">
+          Weather in {country.capital[0]}
+        </h2>
+        <p className="capital-info">
+          <b>
+            Temperature is {convertToCelsius(weather.main.temp)}°
+            Celsius
+          </b>
+        </p>
+        <div>
+          <p className="capital-info">
+            <b>Sky conditions:</b> {weather.weather[0].description}
+          </p>
+          <img
+            className="weather-icon"
+            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+            alt="weather-icon"
+          />
+        </div>
+        <p className="capital-info">
+          Wind at {weather.wind.speed} m/s
+        </p>
+        <button className="hide-weather-btn" onClick={handleClick}>
+          Hide Weather
+        </button>
       </div>
     );
-  }
-
-  return (
-    <div>
-      {toggleWeather === false ? (
-        <ToggleWeather />
-      ) : (
-        <div className="weather-container">
-          <h2 className="capital-name">
-            Weather in {country.capital}
-          </h2>
-          <p className="capital-info">
-            <b>
-              Temperature is {convertToCelsius(weather.main.temp)}°
-              Celsius
-            </b>
-          </p>
-          <div>
-            <p className="capital-info">
-              <b>Sky conditions:</b> {weather.weather[0].description}
-            </p>
-            <img
-              className="weather-icon"
-              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-              alt="weather-icon"
-            />
-          </div>
-          <p className="capital-info">
-            Wind at {weather.wind.speed} m/s
-          </p>
-          <button className="hide-weather-btn" onClick={handleClick}>
-            Hide Weather
-          </button>
-        </div>
-      )}
-    </div>
-  );
+  } else return null;
 };
 export default CapitalWeather;

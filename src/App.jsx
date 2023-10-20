@@ -63,7 +63,6 @@ function App() {
           <h1 className="title">Data For Countries</h1>
           <Search value={search} handleSearch={handleChange} />
           <LoadingSpinner />
-          <p>loading data...</p>
         </div>
       </div>
     );

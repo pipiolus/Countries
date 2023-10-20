@@ -11,7 +11,7 @@ const CountryDetails = ({ country }) => {
       </div>
       <div>
         <p className="info">Continent: {country.continents}</p>
-        <p className="info">Capital: {country.capital}</p>
+        <p className="info">Capital: {country.capital[0]}</p>
         <p className="info">
           Area: {helper.digitFormatter(country.area)} km²
         </p>
