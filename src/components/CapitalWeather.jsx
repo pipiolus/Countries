@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
-
+import ToggleWeather from "./toggleWeatherButton";
 const CapitalWeather = ({ country }) => {
   const [weather, setWeather] = useState(null);
+  const [toggleWeather, setToggleWeather] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const api_key = import.meta.env.VITE_API_KEY;
-    if (weather === null) {
+    if (weather === null && toggleWeather === false) {
       setLoading(true);
       const cap = removeAccents(country.capital[0]);
       const alt = removeDots(country.tld[0]);
@@ -27,7 +28,7 @@ const CapitalWeather = ({ country }) => {
           setLoading(false);
         });
     }
-  }, [country, weather]);
+  }, [country, weather, toggleWeather]);
 
   const removeAccents = (str) =>
     str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -35,6 +36,18 @@ const CapitalWeather = ({ country }) => {
   const removeDots = (str) => str.replaceAll(".", "");
 
   const convertToCelsius = (k) => (k - 273.15).toFixed(2);
+
+  const handleClick = () => {
+    toggleWeather === false
+      ? setToggleWeather(true)
+      : setToggleWeather(false);
+  };
+
+  if (toggleWeather === false) {
+    return (
+      <ToggleWeather country={country} toggleWeather={handleClick} />
+    );
+  }
 
   if (loading) {
     return (
@@ -44,31 +57,41 @@ const CapitalWeather = ({ country }) => {
       </div>
     );
   }
-  if (weather !== null) {
-    return (
-      <div className="weather-container">
-        <h2 className="capital-name">Weather in {country.capital}</h2>
-        <p className="capital-info">
-          <b>
-            Temperature is {convertToCelsius(weather.main.temp)}°
-            Celsius
-          </b>
-        </p>
-        <div>
+
+  return (
+    <div>
+      {toggleWeather === false ? (
+        <ToggleWeather />
+      ) : (
+        <div className="weather-container">
+          <h2 className="capital-name">
+            Weather in {country.capital}
+          </h2>
           <p className="capital-info">
-            <b>Sky conditions:</b> {weather.weather[0].description}
+            <b>
+              Temperature is {convertToCelsius(weather.main.temp)}°
+              Celsius
+            </b>
           </p>
-          <img
-            className="weather-icon"
-            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-            alt="weather-icon"
-          />
+          <div>
+            <p className="capital-info">
+              <b>Sky conditions:</b> {weather.weather[0].description}
+            </p>
+            <img
+              className="weather-icon"
+              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+              alt="weather-icon"
+            />
+          </div>
+          <p className="capital-info">
+            Wind at {weather.wind.speed} m/s
+          </p>
+          <button className="hide-weather-btn" onClick={handleClick}>
+            Hide Weather
+          </button>
         </div>
-        <p className="capital-info">
-          Wind at {weather.wind.speed} m/s
-        </p>
-      </div>
-    );
-  } else return null;
+      )}
+    </div>
+  );
 };
 export default CapitalWeather;
