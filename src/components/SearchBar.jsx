@@ -1,7 +1,7 @@
 const Search = ({ handleSearch }) => {
   return (
     <div className="search-bar">
-      Find countries: <input onChange={handleSearch} />
+      Find countries: <input type="search" onChange={handleSearch} />
     </div>
   );
 };
